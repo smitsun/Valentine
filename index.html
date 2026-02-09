@@ -13,7 +13,7 @@
 *{margin:0;padding:0;box-sizing:border-box}
 
 body{
-  min-height:100vh;
+  height:100vh;
   background:
     radial-gradient(circle at 20% 20%, rgba(220,180,120,.08), transparent 50%),
     radial-gradient(circle at 80% 80%, rgba(180,120,200,.06), transparent 60%),
@@ -21,22 +21,33 @@ body{
   color:#f5f0e9;
   font-family:'Montserrat',sans-serif;
   overflow:hidden;
+  position:relative;
 }
 
-/* Floating emojis */
+/* ===== FLOATING EMOJIS ===== */
 .particle{
   position:absolute;
+  bottom:-40px;
   pointer-events:none;
   opacity:0;
-  animation:floatLuxury cubic-bezier(.22,1,.36,1) infinite;
-  text-shadow:0 0 14px rgba(212,175,55,.45);
+  animation:floatUp linear infinite;
+  will-change:transform,opacity;
 }
 
-@keyframes floatLuxury{
-  0%{transform:translateY(120vh) scale(.6) rotate(0);opacity:0}
+@keyframes floatUp{
+  0%{
+    transform:translateY(0) scale(.7) rotate(0deg);
+    opacity:0;
+  }
   20%{opacity:.9}
-  50%{transform:translate(-20px,40vh) scale(1) rotate(180deg);opacity:.8}
-  100%{transform:translate(20px,-20vh) scale(1.15) rotate(360deg);opacity:0}
+  50%{
+    transform:translateY(-50vh) translateX(-20px) scale(1);
+    opacity:.8;
+  }
+  100%{
+    transform:translateY(-120vh) translateX(20px) rotate(360deg) scale(1.2);
+    opacity:0;
+  }
 }
 
 /* Message bar */
@@ -45,52 +56,55 @@ body{
   top:16px;
   left:50%;
   transform:translateX(-50%);
-  background:rgba(20,25,40,.8);
+  background:rgba(20,25,40,.85);
   backdrop-filter:blur(16px);
   color:#d4af37;
-  padding:12px 28px;
+  padding:12px 26px;
   border-radius:50px;
   font-size:1rem;
   display:none;
   z-index:100;
+  text-align:center;
 }
 
 /* Card */
 .container{
   width:92%;
   max-width:420px;
-  margin:40px auto;
-  padding:50px 30px;
+  height:460px; /* FIXED HEIGHT */
+  margin:auto;
+  padding:48px 28px;
   text-align:center;
   background:rgba(15,20,35,.45);
   backdrop-filter:blur(24px);
   border-radius:32px;
   box-shadow:0 30px 100px rgba(0,0,0,.6);
   position:relative;
+  z-index:10;
 }
 
 h1{
   font-family:'Playfair Display',serif;
-  font-size:clamp(2.3rem,6vw,3.2rem);
+  font-size:clamp(2.2rem,6vw,3.1rem);
   font-weight:700;
   line-height:1.15;
-  margin-bottom:40px;
+  margin-bottom:36px;
 }
 
 h1 span{color:#d4af37;font-weight:900}
 
 /* Buttons */
 .buttons{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:30px;
-  min-height:180px;
   position:relative;
+  height:180px; /* SAFE MOVEMENT AREA */
 }
 
-/* YES button with heartbeat */
+/* YES button */
 #yesBtn{
+  position:absolute;
+  bottom:0;
+  left:50%;
+  transform:translateX(-50%);
   width:100%;
   max-width:340px;
   padding:20px 0;
@@ -104,35 +118,34 @@ h1 span{color:#d4af37;font-weight:900}
   cursor:pointer;
   box-shadow:0 12px 40px rgba(212,175,55,.4);
   animation:heartbeat 3.5s ease-in-out infinite;
+  z-index:20;
 }
 
 @keyframes heartbeat{
-  0%,100%{transform:scale(1)}
-  14%{transform:scale(1.05)}
-  28%{transform:scale(1)}
-  42%{transform:scale(1.07)}
-  70%{transform:scale(1)}
+  0%,100%{transform:translateX(-50%) scale(1)}
+  14%{transform:translateX(-50%) scale(1.05)}
+  28%{transform:translateX(-50%) scale(1)}
+  42%{transform:translateX(-50%) scale(1.07)}
+  70%{transform:translateX(-50%) scale(1)}
 }
 
 /* NO button */
 #noBtn{
-  position:relative;
+  position:absolute;
+  top:20px;
+  left:50%;
+  transform:translateX(-50%);
   width:100%;
-  max-width:340px;
+  max-width:300px;
   padding:18px 0;
-  font-size:1.2rem;
+  font-size:1.15rem;
   background:linear-gradient(135deg,#2a2f45,#1e2338);
   color:#e0e0e0;
   border:1px solid rgba(212,175,55,.3);
   border-radius:60px;
   cursor:pointer;
-  transition:left .8s cubic-bezier(.34,1.56,.64,1),
-             top .8s cubic-bezier(.34,1.56,.64,1);
-}
-
-#noBtn.moving{
-  position:absolute;
-  padding:14px 32px;
+  transition:left .6s ease, top .6s ease;
+  z-index:10;
 }
 
 /* Celebration */
@@ -145,7 +158,6 @@ h1 span{color:#d4af37;font-weight:900}
   justify-content:center;
   flex-direction:column;
   z-index:50;
-  padding:24px;
 }
 
 .celebrate h2{
@@ -157,16 +169,12 @@ h1 span{color:#d4af37;font-weight:900}
 }
 
 .gif-box{
-  max-width:400px;
+  max-width:380px;
   border-radius:24px;
   overflow:hidden;
 }
 
-img{
-  width:100%;
-  height:auto;
-  display:block;
-}
+img{width:100%;display:block}
 
 /* Confetti */
 .confetti{
@@ -189,41 +197,39 @@ img{
 <div class="container" id="main">
   <h1>Swati,<br>Will You Do Me The Honor<br>of Being <span>My Valentine</span> This Year? ✧</h1>
   <div class="buttons">
-    <button id="yesBtn">Yes, Absolutely 💞</button>
     <button id="noBtn">No 💭</button>
+    <button id="yesBtn">Yes, Absolutely 💞</button>
   </div>
 </div>
 
 <div class="celebrate" id="celebrate">
   <h2>I Knew You’d Say Yes…</h2>
   <div class="gif-box">
-    <!-- UPDATED GIF -->
-    <img src="https://gifsec.com/wp-content/uploads/2021/05/excited-guy-gif-2.gif" alt="Excited celebration">
+    <img src="https://gifsec.com/wp-content/uploads/2021/05/excited-guy-gif-2.gif" alt="Excited">
   </div>
 </div>
 
 <script>
-/* Floating emojis */
-const emojis=["😍","❤️","💘","🫶","🥰","😚","🤍","✨","💫"];
+/* ===== FLOATING EMOJIS (FIXED) ===== */
+const emojis=["😍","❤️","💘","🫶","🥰","😚","🤍"];
 function spawnEmoji(){
   const e=document.createElement("div");
   e.className="particle";
   e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
   e.style.left=Math.random()*100+"vw";
-  e.style.fontSize=(18+Math.random()*26)+"px";
-  e.style.animationDuration=(8+Math.random()*10)+"s";
+  e.style.fontSize=(18+Math.random()*28)+"px";
+  e.style.animationDuration=(6+Math.random()*8)+"s";
   document.body.appendChild(e);
-  setTimeout(()=>e.remove(),18000);
+  setTimeout(()=>e.remove(),15000);
 }
-for(let i=0;i<20;i++)spawnEmoji();
-setInterval(spawnEmoji,1200);
+for(let i=0;i<25;i++)spawnEmoji();
+setInterval(spawnEmoji,900);
 
-/* NO button logic */
+/* ===== NO BUTTON SAFE MOVE ===== */
 const noBtn=document.getElementById("noBtn");
 const yesBtn=document.getElementById("yesBtn");
-const container=document.querySelector(".container");
+const box=document.querySelector(".buttons");
 const msgBar=document.getElementById("messageBar");
-const celebrate=document.getElementById("celebrate");
 
 const messages=[
  "Are you sure? Think again… 😌",
@@ -238,37 +244,37 @@ const messages=[
  "My heart is racing… 🥰"
 ];
 
-let idx=0,isMoving=false;
+let idx=0;
 
 function moveNo(){
-  if(!isMoving){noBtn.classList.add("moving");isMoving=true}
-  const c=container.getBoundingClientRect();
-  const y=yesBtn.getBoundingClientRect();
-  let x,yPos;
-  do{
-    x=40+Math.random()*(c.width-noBtn.offsetWidth-80);
-    yPos=40+Math.random()*(c.height-noBtn.offsetHeight-120);
-  }while(!(yPos+noBtn.offsetHeight<y.top-c.top-20||yPos>y.bottom-c.top+20));
+  const maxX=box.clientWidth-noBtn.offsetWidth;
+  const maxY=box.clientHeight-noBtn.offsetHeight-80; // avoid YES
+
+  const x=Math.max(0,Math.random()*maxX);
+  const y=Math.max(0,Math.random()*maxY);
+
   noBtn.style.left=x+"px";
-  noBtn.style.top=yPos+"px";
+  noBtn.style.top=y+"px";
+
   msgBar.innerText=messages[idx++%messages.length];
   msgBar.style.display="block";
-  setTimeout(()=>msgBar.style.display="none",4500);
+  setTimeout(()=>msgBar.style.display="none",4000);
 }
 
 noBtn.addEventListener("click",moveNo);
-noBtn.addEventListener("touchstart",(e)=>{e.preventDefault();moveNo()});
+noBtn.addEventListener("touchstart",e=>{e.preventDefault();moveNo()});
 
 /* YES */
 yesBtn.addEventListener("click",()=>{
   document.getElementById("main").style.display="none";
-  celebrate.style.display="flex";
+  document.getElementById("celebrate").style.display="flex";
   launchConfetti();
 });
 
+/* Confetti */
 function launchConfetti(){
   const colors=["#d4af37","#f0d08c","#b8860b","#fff8e1"];
-  for(let i=0;i<120;i++){
+  for(let i=0;i<100;i++){
     const c=document.createElement("div");
     c.className="confetti";
     c.style.left=Math.random()*100+"vw";
@@ -276,7 +282,7 @@ function launchConfetti(){
     c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
     c.style.animationDuration=(2+Math.random()*3)+"s";
     document.body.appendChild(c);
-    setTimeout(()=>c.remove(),7000);
+    setTimeout(()=>c.remove(),6000);
   }
 }
 </script>
