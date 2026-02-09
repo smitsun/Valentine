@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<title>Swati… Will You Be My Valentine? ✧</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+
+body{
+  min-height:100vh;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(220,180,120,.08), transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(180,120,200,.06), transparent 60%),
+    linear-gradient(135deg,#0a0e17,#111725,#0f1a2e);
+  color:#f5f0e9;
+  font-family:'Montserrat',sans-serif;
+  overflow:hidden;
+}
+
+/* Floating emojis */
+.particle{
+  position:absolute;
+  pointer-events:none;
+  opacity:0;
+  animation:floatLuxury cubic-bezier(.22,1,.36,1) infinite;
+  text-shadow:0 0 14px rgba(212,175,55,.45);
+}
+
+@keyframes floatLuxury{
+  0%{transform:translateY(120vh) scale(.6) rotate(0);opacity:0}
+  20%{opacity:.9}
+  50%{transform:translate(-20px,40vh) scale(1) rotate(180deg);opacity:.8}
+  100%{transform:translate(20px,-20vh) scale(1.15) rotate(360deg);opacity:0}
+}
+
+/* Message bar */
+#messageBar{
+  position:fixed;
+  top:16px;
+  left:50%;
+  transform:translateX(-50%);
+  background:rgba(20,25,40,.8);
+  backdrop-filter:blur(16px);
+  color:#d4af37;
+  padding:12px 28px;
+  border-radius:50px;
+  font-size:1rem;
+  display:none;
+  z-index:100;
+}
+
+/* Card */
+.container{
+  width:92%;
+  max-width:420px;
+  margin:40px auto;
+  padding:50px 30px;
+  text-align:center;
+  background:rgba(15,20,35,.45);
+  backdrop-filter:blur(24px);
+  border-radius:32px;
+  box-shadow:0 30px 100px rgba(0,0,0,.6);
+  position:relative;
+}
+
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.3rem,6vw,3.2rem);
+  font-weight:700;
+  line-height:1.15;
+  margin-bottom:40px;
+}
+
+h1 span{color:#d4af37;font-weight:900}
+
+/* Buttons */
+.buttons{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:30px;
+  min-height:180px;
+  position:relative;
+}
+
+/* YES button with heartbeat */
+#yesBtn{
+  width:100%;
+  max-width:340px;
+  padding:20px 0;
+  font-size:1.3rem;
+  font-weight:700;
+  letter-spacing:1.2px;
+  color:#0f141f;
+  background:linear-gradient(135deg,#d4af37,#f0d08c,#d4af37);
+  border:none;
+  border-radius:60px;
+  cursor:pointer;
+  box-shadow:0 12px 40px rgba(212,175,55,.4);
+  animation:heartbeat 3.5s ease-in-out infinite;
+}
+
+@keyframes heartbeat{
+  0%,100%{transform:scale(1)}
+  14%{transform:scale(1.05)}
+  28%{transform:scale(1)}
+  42%{transform:scale(1.07)}
+  70%{transform:scale(1)}
+}
+
+/* NO button */
+#noBtn{
+  position:relative;
+  width:100%;
+  max-width:340px;
+  padding:18px 0;
+  font-size:1.2rem;
+  background:linear-gradient(135deg,#2a2f45,#1e2338);
+  color:#e0e0e0;
+  border:1px solid rgba(212,175,55,.3);
+  border-radius:60px;
+  cursor:pointer;
+  transition:left .8s cubic-bezier(.34,1.56,.64,1),
+             top .8s cubic-bezier(.34,1.56,.64,1);
+}
+
+#noBtn.moving{
+  position:absolute;
+  padding:14px 32px;
+}
+
+/* Celebration */
+.celebrate{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:linear-gradient(135deg,#0a0e17,#111725);
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  z-index:50;
+  padding:24px;
+}
+
+.celebrate h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(3rem,8vw,4.5rem);
+  font-weight:900;
+  color:#d4af37;
+  margin-bottom:30px;
+}
+
+.gif-box{
+  max-width:400px;
+  border-radius:24px;
+  overflow:hidden;
+}
+
+img{
+  width:100%;
+  height:auto;
+  display:block;
+}
+
+/* Confetti */
+.confetti{
+  position:absolute;
+  width:12px;
+  height:12px;
+  animation:confettiFall 4s linear forwards;
+}
+
+@keyframes confettiFall{
+  to{transform:translateY(110vh) rotate(1080deg);opacity:0}
+}
+</style>
+</head>
+
+<body>
+
+<div id="messageBar"></div>
+
+<div class="container" id="main">
+  <h1>Swati,<br>Will You Do Me The Honor<br>of Being <span>My Valentine</span> This Year? ✧</h1>
+  <div class="buttons">
+    <button id="yesBtn">Yes, Absolutely 💞</button>
+    <button id="noBtn">No 💭</button>
+  </div>
+</div>
+
+<div class="celebrate" id="celebrate">
+  <h2>I Knew You’d Say Yes…</h2>
+  <div class="gif-box">
+    <!-- UPDATED GIF -->
+    <img src="https://gifsec.com/wp-content/uploads/2021/05/excited-guy-gif-2.gif" alt="Excited celebration">
+  </div>
+</div>
+
+<script>
+/* Floating emojis */
+const emojis=["😍","❤️","💘","🫶","🥰","😚","🤍","✨","💫"];
+function spawnEmoji(){
+  const e=document.createElement("div");
+  e.className="particle";
+  e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
+  e.style.left=Math.random()*100+"vw";
+  e.style.fontSize=(18+Math.random()*26)+"px";
+  e.style.animationDuration=(8+Math.random()*10)+"s";
+  document.body.appendChild(e);
+  setTimeout(()=>e.remove(),18000);
+}
+for(let i=0;i<20;i++)spawnEmoji();
+setInterval(spawnEmoji,1200);
+
+/* NO button logic */
+const noBtn=document.getElementById("noBtn");
+const yesBtn=document.getElementById("yesBtn");
+const container=document.querySelector(".container");
+const msgBar=document.getElementById("messageBar");
+const celebrate=document.getElementById("celebrate");
+
+const messages=[
+ "Are you sure? Think again… 😌",
+ "One more chance, my lady… 🤍",
+ "Dinners under the stars 🌙",
+ "You know you want to say yes 😉",
+ "Last chance for pampering 💎",
+ "Misclick? I forgive you 😏",
+ "Swiss chocolates await 🍫",
+ "Private cinema night 🎥",
+ "Say yes and unlock forever 🔐",
+ "My heart is racing… 🥰"
+];
+
+let idx=0,isMoving=false;
+
+function moveNo(){
+  if(!isMoving){noBtn.classList.add("moving");isMoving=true}
+  const c=container.getBoundingClientRect();
+  const y=yesBtn.getBoundingClientRect();
+  let x,yPos;
+  do{
+    x=40+Math.random()*(c.width-noBtn.offsetWidth-80);
+    yPos=40+Math.random()*(c.height-noBtn.offsetHeight-120);
+  }while(!(yPos+noBtn.offsetHeight<y.top-c.top-20||yPos>y.bottom-c.top+20));
+  noBtn.style.left=x+"px";
+  noBtn.style.top=yPos+"px";
+  msgBar.innerText=messages[idx++%messages.length];
+  msgBar.style.display="block";
+  setTimeout(()=>msgBar.style.display="none",4500);
+}
+
+noBtn.addEventListener("click",moveNo);
+noBtn.addEventListener("touchstart",(e)=>{e.preventDefault();moveNo()});
+
+/* YES */
+yesBtn.addEventListener("click",()=>{
+  document.getElementById("main").style.display="none";
+  celebrate.style.display="flex";
+  launchConfetti();
+});
+
+function launchConfetti(){
+  const colors=["#d4af37","#f0d08c","#b8860b","#fff8e1"];
+  for(let i=0;i<120;i++){
+    const c=document.createElement("div");
+    c.className="confetti";
+    c.style.left=Math.random()*100+"vw";
+    c.style.top="-20px";
+    c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
+    c.style.animationDuration=(2+Math.random()*3)+"s";
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),7000);
+  }
+}
+</script>
+
+</body>
+</html>
