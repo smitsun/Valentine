@@ -1,72 +1,38 @@
-// Elements
-const envelope = document.getElementById("envelope-container");
-const letter = document.getElementById("letter-container");
 const noBtn = document.querySelector(".no-btn");
-const yesBtn = document.querySelector(".btn[alt='Yes']");
-
-const title = document.getElementById("letter-title");
-const catImg = document.getElementById("letter-cat");
-const buttons = document.getElementById("letter-buttons");
+const noWrapper = document.querySelector(".no-wrapper");
+const yesBtn = document.querySelector(".yes-btn");
 const finalText = document.getElementById("final-text");
 
-// Click Envelope
+function moveNoButton() {
+  const btnRect = noWrapper.getBoundingClientRect();
 
-envelope.addEventListener("click", () => {
-    envelope.style.display = "none";
-    letter.style.display = "flex";
+  const padding = 20;
 
-    setTimeout( () => {
-        document.querySelector(".letter-window").classList.add("open");
-    },50);
-});
+  const maxX = window.innerWidth - btnRect.width - padding;
+  const maxY = window.innerHeight - btnRect.height - padding;
 
-// Logic to move the NO btn
+  const randomX = Math.max(
+    padding,
+    Math.random() * maxX
+  );
 
-noBtn.addEventListener("mouseover", () => {
-    const min = 200;
-    const max = 200;
+  const randomY = Math.max(
+    padding,
+    Math.random() * maxY
+  );
 
-    const distance = Math.random() * (max - min) + min;
-    const angle = Math.random() * Math.PI * 2;
+  noWrapper.style.position = "fixed";
+  noWrapper.style.left = randomX + "px";
+  noWrapper.style.top = randomY + "px";
+  noWrapper.style.transition = "all 0.3s ease";
+}
 
-    const moveX = Math.cos(angle) * distance;
-    const moveY = Math.sin(angle) * distance;
+// Desktop + Mobile safe
+noWrapper.addEventListener("mouseenter", moveNoButton);
+noWrapper.addEventListener("touchstart", moveNoButton);
 
-    noBtn.style.transition = "transform 0.3s ease";
-    noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
-});
-
-// Logic to make YES btn to grow
-
-// let yesScale = 1;
-
-// yesBtn.style.position = "relative"
-// yesBtn.style.transformOrigin = "center center";
-// yesBtn.style.transition = "transform 0.3s ease";
-
-// noBtn.addEventListener("click", () => {
-//     yesScale += 2;
-
-//     if (yesBtn.style.position !== "fixed") {
-//         yesBtn.style.position = "fixed";
-//         yesBtn.style.top = "50%";
-//         yesBtn.style.left = "50%";
-//         yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
-//     }else{
-//         yesBtn.style.transform = `translate(-50%, -50%) scale(${yesScale})`;
-//     }
-// });
-
-// YES is clicked
-
+// YES button behavior
 yesBtn.addEventListener("click", () => {
-    title.textContent = "Yippeeee!";
-
-    catImg.src = "cat_dance.gif";
-
-    document.querySelector(".letter-window").classList.add("final");
-
-    buttons.style.display = "none";
-
-    finalText.style.display = "block";
+  finalText.style.display = "block";
+  noWrapper.style.display = "none";
 });
