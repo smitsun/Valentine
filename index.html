@@ -24,30 +24,19 @@ body{
   position:relative;
 }
 
-/* ===== FLOATING EMOJIS ===== */
+/* Floating emojis */
 .particle{
   position:absolute;
   bottom:-40px;
   pointer-events:none;
   opacity:0;
   animation:floatUp linear infinite;
-  will-change:transform,opacity;
 }
 
 @keyframes floatUp{
-  0%{
-    transform:translateY(0) scale(.7) rotate(0deg);
-    opacity:0;
-  }
+  0%{transform:translateY(0) scale(.7);opacity:0}
   20%{opacity:.9}
-  50%{
-    transform:translateY(-50vh) translateX(-20px) scale(1);
-    opacity:.8;
-  }
-  100%{
-    transform:translateY(-120vh) translateX(20px) rotate(360deg) scale(1.2);
-    opacity:0;
-  }
+  100%{transform:translateY(-120vh) translateX(30px) scale(1.2);opacity:0}
 }
 
 /* Message bar */
@@ -64,14 +53,13 @@ body{
   font-size:1rem;
   display:none;
   z-index:100;
-  text-align:center;
 }
 
 /* Card */
 .container{
   width:92%;
   max-width:420px;
-  height:460px; /* FIXED HEIGHT */
+  height:480px;
   margin:auto;
   padding:48px 28px;
   text-align:center;
@@ -88,15 +76,16 @@ h1{
   font-size:clamp(2.2rem,6vw,3.1rem);
   font-weight:700;
   line-height:1.15;
-  margin-bottom:36px;
+  margin-bottom:30px;
 }
 
 h1 span{color:#d4af37;font-weight:900}
 
-/* Buttons */
+/* Button area */
 .buttons{
   position:relative;
-  height:180px; /* SAFE MOVEMENT AREA */
+  width:100%;
+  height:220px;
 }
 
 /* YES button */
@@ -106,17 +95,15 @@ h1 span{color:#d4af37;font-weight:900}
   left:50%;
   transform:translateX(-50%);
   width:100%;
-  max-width:340px;
-  padding:20px 0;
-  font-size:1.3rem;
+  max-width:320px;
+  padding:18px 0;
+  font-size:1.25rem;
   font-weight:700;
-  letter-spacing:1.2px;
   color:#0f141f;
   background:linear-gradient(135deg,#d4af37,#f0d08c,#d4af37);
   border:none;
   border-radius:60px;
   cursor:pointer;
-  box-shadow:0 12px 40px rgba(212,175,55,.4);
   animation:heartbeat 3.5s ease-in-out infinite;
   z-index:20;
 }
@@ -132,19 +119,19 @@ h1 span{color:#d4af37;font-weight:900}
 /* NO button */
 #noBtn{
   position:absolute;
-  top:20px;
+  top:10px;
   left:50%;
   transform:translateX(-50%);
   width:100%;
-  max-width:300px;
-  padding:18px 0;
+  max-width:280px;
+  padding:16px 0;
   font-size:1.15rem;
   background:linear-gradient(135deg,#2a2f45,#1e2338);
   color:#e0e0e0;
   border:1px solid rgba(212,175,55,.3);
   border-radius:60px;
   cursor:pointer;
-  transition:left .6s ease, top .6s ease;
+  transition:top .6s ease,left .6s ease;
   z-index:10;
 }
 
@@ -187,6 +174,9 @@ img{width:100%;display:block}
 @keyframes confettiFall{
   to{transform:translateY(110vh) rotate(1080deg);opacity:0}
 }
+
+/* Music hidden */
+#music{display:none}
 </style>
 </head>
 
@@ -196,7 +186,7 @@ img{width:100%;display:block}
 
 <div class="container" id="main">
   <h1>Swati,<br>Will You Do Me The Honor<br>of Being <span>My Valentine</span> This Year? ✧</h1>
-  <div class="buttons">
+  <div class="buttons" id="playArea">
     <button id="noBtn">No 💭</button>
     <button id="yesBtn">Yes, Absolutely 💞</button>
   </div>
@@ -205,60 +195,90 @@ img{width:100%;display:block}
 <div class="celebrate" id="celebrate">
   <h2>I Knew You’d Say Yes…</h2>
   <div class="gif-box">
-    <img src="https://gifsec.com/wp-content/uploads/2021/05/excited-guy-gif-2.gif" alt="Excited">
+    <img src="https://gifsec.com/wp-content/uploads/2021/05/excited-guy-gif-2.gif">
   </div>
 </div>
 
+<!-- 🎵 MUSIC: Mirrors – Justin Timberlake (starts at 0:10) -->
+<iframe
+  id="music"
+  src="https://www.youtube.com/embed/uuZE_IRwLNI?start=10&autoplay=1&mute=1&loop=1&playlist=uuZE_IRwLNI"
+  allow="autoplay">
+</iframe>
+
 <script>
-/* ===== FLOATING EMOJIS (FIXED) ===== */
+/* Floating emojis */
 const emojis=["😍","❤️","💘","🫶","🥰","😚","🤍"];
 function spawnEmoji(){
   const e=document.createElement("div");
   e.className="particle";
   e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
   e.style.left=Math.random()*100+"vw";
-  e.style.fontSize=(18+Math.random()*28)+"px";
+  e.style.fontSize=(18+Math.random()*26)+"px";
   e.style.animationDuration=(6+Math.random()*8)+"s";
   document.body.appendChild(e);
-  setTimeout(()=>e.remove(),15000);
+  setTimeout(()=>e.remove(),14000);
 }
 for(let i=0;i<25;i++)spawnEmoji();
 setInterval(spawnEmoji,900);
 
-/* ===== NO BUTTON SAFE MOVE ===== */
+/* NO button movement */
 const noBtn=document.getElementById("noBtn");
 const yesBtn=document.getElementById("yesBtn");
-const box=document.querySelector(".buttons");
+const area=document.getElementById("playArea");
 const msgBar=document.getElementById("messageBar");
+const music=document.getElementById("music");
 
 const messages=[
  "Are you sure? Think again… 😌",
- "One more chance, my lady… 🤍",
- "Dinners under the stars 🌙",
- "You know you want to say yes 😉",
- "Last chance for pampering 💎",
- "Misclick? I forgive you 😏",
- "Swiss chocolates await 🍫",
- "Private cinema night 🎥",
- "Say yes and unlock forever 🔐",
- "My heart is racing… 🥰"
+ "One more chance… 🤍",
+ "Dinner under the stars 🌙",
+ "You know you want to 😉",
+ "Final offer 💎",
+ "Misclick? 😏",
+ "Chocolate bribe 🍫",
+ "Movie night 🎥",
+ "Say yes already 🔐",
+ "My heart is racing 🥰"
 ];
 
 let idx=0;
+let musicStarted=false;
 
 function moveNo(){
-  const maxX=box.clientWidth-noBtn.offsetWidth;
-  const maxY=box.clientHeight-noBtn.offsetHeight-80; // avoid YES
+  const areaRect=area.getBoundingClientRect();
+  const yesRect=yesBtn.getBoundingClientRect();
 
-  const x=Math.max(0,Math.random()*maxX);
-  const y=Math.max(0,Math.random()*maxY);
+  let x,y,tries=0;
+
+  do{
+    x=Math.random()*(areaRect.width-noBtn.offsetWidth);
+    y=Math.random()*(areaRect.height-noBtn.offsetHeight-80);
+    const nLeft=areaRect.left+x;
+    const nTop=areaRect.top+y;
+    const nRight=nLeft+noBtn.offsetWidth;
+    const nBottom=nTop+noBtn.offsetHeight;
+
+    var overlap=!(
+      nRight<yesRect.left||
+      nLeft>yesRect.right||
+      nBottom<yesRect.top||
+      nTop>yesRect.bottom
+    );
+    tries++;
+  }while(overlap&&tries<50);
 
   noBtn.style.left=x+"px";
   noBtn.style.top=y+"px";
 
   msgBar.innerText=messages[idx++%messages.length];
   msgBar.style.display="block";
-  setTimeout(()=>msgBar.style.display="none",4000);
+  setTimeout(()=>msgBar.style.display="none",3500);
+
+  if(!musicStarted){
+    music.src="https://www.youtube.com/embed/uuZE_IRwLNI?start=10&autoplay=1&loop=1&playlist=uuZE_IRwLNI";
+    musicStarted=true;
+  }
 }
 
 noBtn.addEventListener("click",moveNo);
@@ -274,7 +294,7 @@ yesBtn.addEventListener("click",()=>{
 /* Confetti */
 function launchConfetti(){
   const colors=["#d4af37","#f0d08c","#b8860b","#fff8e1"];
-  for(let i=0;i<100;i++){
+  for(let i=0;i<90;i++){
     const c=document.createElement("div");
     c.className="confetti";
     c.style.left=Math.random()*100+"vw";
