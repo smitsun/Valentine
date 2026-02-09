@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Swati… Will You Be My Valentine? ✧</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -14,169 +14,91 @@
 
 body{
   height:100vh;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(220,180,120,.08), transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(180,120,200,.06), transparent 60%),
-    linear-gradient(135deg,#0a0e17,#111725,#0f1a2e);
-  color:#f5f0e9;
+  background:linear-gradient(135deg,#0a0e17,#111725,#0f1a2e);
+  color:#fff;
   font-family:'Montserrat',sans-serif;
   overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.container{
+  width:92%;
+  max-width:420px;
+  height:500px;
+  padding:40px 24px;
+  background:rgba(15,20,35,.5);
+  backdrop-filter:blur(20px);
+  border-radius:30px;
   position:relative;
 }
 
-/* Floating emojis */
-.particle{
+h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,6vw,3rem);
+  line-height:1.15;
+  text-align:center;
+  margin-bottom:20px;
+}
+
+h1 span{color:#d4af37}
+
+#yesBtn{
   position:absolute;
-  bottom:-40px;
-  pointer-events:none;
-  opacity:0;
-  animation:floatUp linear infinite;
+  bottom:24px;
+  left:50%;
+  transform:translateX(-50%);
+  width:80%;
+  padding:18px 0;
+  font-size:1.2rem;
+  font-weight:700;
+  border:none;
+  border-radius:50px;
+  background:linear-gradient(135deg,#d4af37,#f0d08c,#d4af37);
+  color:#000;
+  cursor:pointer;
 }
 
-@keyframes floatUp{
-  0%{transform:translateY(0) scale(.7);opacity:0}
-  20%{opacity:.9}
-  100%{transform:translateY(-120vh) translateX(30px) scale(1.2);opacity:0}
+#noBtn{
+  position:absolute;
+  padding:14px 30px;
+  font-size:1.1rem;
+  border-radius:50px;
+  border:1px solid rgba(255,255,255,.3);
+  background:#1f2438;
+  color:#fff;
+  cursor:pointer;
+  transition:top .5s ease,left .5s ease;
 }
 
-/* Message bar */
 #messageBar{
   position:fixed;
   top:16px;
   left:50%;
   transform:translateX(-50%);
-  background:rgba(20,25,40,.85);
-  backdrop-filter:blur(16px);
-  color:#d4af37;
-  padding:12px 26px;
-  border-radius:50px;
-  font-size:1rem;
+  background:rgba(0,0,0,.7);
+  padding:10px 22px;
+  border-radius:40px;
   display:none;
   z-index:100;
 }
 
-/* Card */
-.container{
-  width:92%;
-  max-width:420px;
-  height:480px;
-  margin:auto;
-  padding:48px 28px;
-  text-align:center;
-  background:rgba(15,20,35,.45);
-  backdrop-filter:blur(24px);
-  border-radius:32px;
-  box-shadow:0 30px 100px rgba(0,0,0,.6);
-  position:relative;
-  z-index:10;
-}
-
-h1{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(2.2rem,6vw,3.1rem);
-  font-weight:700;
-  line-height:1.15;
-  margin-bottom:30px;
-}
-
-h1 span{color:#d4af37;font-weight:900}
-
-/* Button area */
-.buttons{
-  position:relative;
-  width:100%;
-  height:220px;
-}
-
-/* YES button */
-#yesBtn{
-  position:absolute;
-  bottom:0;
-  left:50%;
-  transform:translateX(-50%);
-  width:100%;
-  max-width:320px;
-  padding:18px 0;
-  font-size:1.25rem;
-  font-weight:700;
-  color:#0f141f;
-  background:linear-gradient(135deg,#d4af37,#f0d08c,#d4af37);
-  border:none;
-  border-radius:60px;
-  cursor:pointer;
-  animation:heartbeat 3.5s ease-in-out infinite;
-  z-index:20;
-}
-
-@keyframes heartbeat{
-  0%,100%{transform:translateX(-50%) scale(1)}
-  14%{transform:translateX(-50%) scale(1.05)}
-  28%{transform:translateX(-50%) scale(1)}
-  42%{transform:translateX(-50%) scale(1.07)}
-  70%{transform:translateX(-50%) scale(1)}
-}
-
-/* NO button */
-#noBtn{
-  position:absolute;
-  top:10px;
-  left:50%;
-  transform:translateX(-50%);
-  width:100%;
-  max-width:280px;
-  padding:16px 0;
-  font-size:1.15rem;
-  background:linear-gradient(135deg,#2a2f45,#1e2338);
-  color:#e0e0e0;
-  border:1px solid rgba(212,175,55,.3);
-  border-radius:60px;
-  cursor:pointer;
-  transition:top .6s ease,left .6s ease;
-  z-index:10;
-}
-
 /* Celebration */
 .celebrate{
-  display:none;
   position:fixed;
   inset:0;
-  background:linear-gradient(135deg,#0a0e17,#111725);
+  display:none;
+  background:#0a0e17;
+  flex-direction:column;
   align-items:center;
   justify-content:center;
-  flex-direction:column;
-  z-index:50;
 }
 
-.celebrate h2{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(3rem,8vw,4.5rem);
-  font-weight:900;
-  color:#d4af37;
-  margin-bottom:30px;
+.celebrate img{
+  width:300px;
+  border-radius:20px;
 }
-
-.gif-box{
-  max-width:380px;
-  border-radius:24px;
-  overflow:hidden;
-}
-
-img{width:100%;display:block}
-
-/* Confetti */
-.confetti{
-  position:absolute;
-  width:12px;
-  height:12px;
-  animation:confettiFall 4s linear forwards;
-}
-
-@keyframes confettiFall{
-  to{transform:translateY(110vh) rotate(1080deg);opacity:0}
-}
-
-/* Music hidden */
-#music{display:none}
 </style>
 </head>
 
@@ -184,96 +106,68 @@ img{width:100%;display:block}
 
 <div id="messageBar"></div>
 
-<div class="container" id="main">
-  <h1>Swati,<br>Will You Do Me The Honor<br>of Being <span>My Valentine</span> This Year? ✧</h1>
-  <div class="buttons" id="playArea">
-    <button id="noBtn">No 💭</button>
-    <button id="yesBtn">Yes, Absolutely 💞</button>
-  </div>
+<div class="container" id="card">
+  <h1>Swati,<br>Will You Be <span>My Valentine</span>? ✧</h1>
+  <button id="noBtn">No 💭</button>
+  <button id="yesBtn">Yes 💖</button>
 </div>
 
 <div class="celebrate" id="celebrate">
-  <h2>I Knew You’d Say Yes…</h2>
-  <div class="gif-box">
-    <img src="https://gifsec.com/wp-content/uploads/2021/05/excited-guy-gif-2.gif">
-  </div>
+  <h1>I Knew It 😎</h1>
+  <img src="https://gifsec.com/wp-content/uploads/2021/05/excited-guy-gif-2.gif">
 </div>
 
-<!-- 🎵 MUSIC: Mirrors – Justin Timberlake (starts at 0:10) -->
-<iframe
-  id="music"
-  src="https://www.youtube.com/embed/uuZE_IRwLNI?start=10&autoplay=1&mute=1&loop=1&playlist=uuZE_IRwLNI"
-  allow="autoplay">
-</iframe>
+<!-- 🎵 Mirrors – Justin Timberlake -->
+<iframe id="music" style="display:none"
+src="https://www.youtube.com/embed/uuZE_IRwLNI?start=10&autoplay=1&mute=1&loop=1&playlist=uuZE_IRwLNI"
+allow="autoplay"></iframe>
 
 <script>
-/* Floating emojis */
-const emojis=["😍","❤️","💘","🫶","🥰","😚","🤍"];
-function spawnEmoji(){
-  const e=document.createElement("div");
-  e.className="particle";
-  e.innerText=emojis[Math.floor(Math.random()*emojis.length)];
-  e.style.left=Math.random()*100+"vw";
-  e.style.fontSize=(18+Math.random()*26)+"px";
-  e.style.animationDuration=(6+Math.random()*8)+"s";
-  document.body.appendChild(e);
-  setTimeout(()=>e.remove(),14000);
-}
-for(let i=0;i<25;i++)spawnEmoji();
-setInterval(spawnEmoji,900);
-
-/* NO button movement */
-const noBtn=document.getElementById("noBtn");
-const yesBtn=document.getElementById("yesBtn");
-const area=document.getElementById("playArea");
-const msgBar=document.getElementById("messageBar");
-const music=document.getElementById("music");
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const card  = document.getElementById("card");
+const msg   = document.getElementById("messageBar");
+const music = document.getElementById("music");
 
 const messages=[
- "Are you sure? Think again… 😌",
- "One more chance… 🤍",
- "Dinner under the stars 🌙",
- "You know you want to 😉",
- "Final offer 💎",
- "Misclick? 😏",
+ "Are you sure? 😌",
+ "Think again 🤍",
+ "One more chance 😉",
+ "Dinner under stars 🌙",
  "Chocolate bribe 🍫",
- "Movie night 🎥",
- "Say yes already 🔐",
+ "Final offer 💎",
  "My heart is racing 🥰"
 ];
 
-let idx=0;
-let musicStarted=false;
+let idx=0, musicStarted=false;
+
+// Predefined movement zones (REAL FIX)
+function getZones(){
+  const c=card.getBoundingClientRect();
+  const yes=yesBtn.getBoundingClientRect();
+
+  return [
+    {x1:20,y1:80,x2:c.width-140,y2:160},
+    {x1:20,y1:160,x2:c.width/2-20,y2:280},
+    {x1:c.width/2+20,y1:160,x2:c.width-140,y2:280},
+    {x1:20,y1:280,x2:c.width/2-20,y2:c.height-140},
+    {x1:c.width/2+20,y1:280,x2:c.width-140,y2:c.height-140}
+  ];
+}
 
 function moveNo(){
-  const areaRect=area.getBoundingClientRect();
-  const yesRect=yesBtn.getBoundingClientRect();
+  const zones=getZones();
+  const zone=zones[Math.floor(Math.random()*zones.length)];
 
-  let x,y,tries=0;
-
-  do{
-    x=Math.random()*(areaRect.width-noBtn.offsetWidth);
-    y=Math.random()*(areaRect.height-noBtn.offsetHeight-80);
-    const nLeft=areaRect.left+x;
-    const nTop=areaRect.top+y;
-    const nRight=nLeft+noBtn.offsetWidth;
-    const nBottom=nTop+noBtn.offsetHeight;
-
-    var overlap=!(
-      nRight<yesRect.left||
-      nLeft>yesRect.right||
-      nBottom<yesRect.top||
-      nTop>yesRect.bottom
-    );
-    tries++;
-  }while(overlap&&tries<50);
+  const x=zone.x1+Math.random()*(zone.x2-zone.x1);
+  const y=zone.y1+Math.random()*(zone.y2-zone.y1);
 
   noBtn.style.left=x+"px";
   noBtn.style.top=y+"px";
 
-  msgBar.innerText=messages[idx++%messages.length];
-  msgBar.style.display="block";
-  setTimeout(()=>msgBar.style.display="none",3500);
+  msg.innerText=messages[idx++%messages.length];
+  msg.style.display="block";
+  setTimeout(()=>msg.style.display="none",3000);
 
   if(!musicStarted){
     music.src="https://www.youtube.com/embed/uuZE_IRwLNI?start=10&autoplay=1&loop=1&playlist=uuZE_IRwLNI";
@@ -284,27 +178,10 @@ function moveNo(){
 noBtn.addEventListener("click",moveNo);
 noBtn.addEventListener("touchstart",e=>{e.preventDefault();moveNo()});
 
-/* YES */
 yesBtn.addEventListener("click",()=>{
-  document.getElementById("main").style.display="none";
+  card.style.display="none";
   document.getElementById("celebrate").style.display="flex";
-  launchConfetti();
 });
-
-/* Confetti */
-function launchConfetti(){
-  const colors=["#d4af37","#f0d08c","#b8860b","#fff8e1"];
-  for(let i=0;i<90;i++){
-    const c=document.createElement("div");
-    c.className="confetti";
-    c.style.left=Math.random()*100+"vw";
-    c.style.top="-20px";
-    c.style.backgroundColor=colors[Math.floor(Math.random()*colors.length)];
-    c.style.animationDuration=(2+Math.random()*3)+"s";
-    document.body.appendChild(c);
-    setTimeout(()=>c.remove(),6000);
-  }
-}
 </script>
 
 </body>
